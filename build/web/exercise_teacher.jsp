@@ -4,7 +4,10 @@
     Author     : A556U
 --%>
 
+<%@page import="Model.Exercise"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,8 +15,10 @@
         <title>Exercise</title>
         <link rel="stylesheet" href="exercise_teacher_css.css">
         <!--<!-<script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+        
     </head>
     <body>
+        <input type="hidden" name="part" value="${part}">
         <div class = 'div_menu'> 
             <div class='div_logo'>
                 <img id='image_logo'href='#' src ="logo.png" >
@@ -25,32 +30,78 @@
                 <label id='label_account'>Name  <i class='fas fa-caret-down'></i></label>               
             </div>
         </div>
-        <div id="container">
-            <h1 id='label_chapName_partName'>Hiển thị tên chương, bài</h1>
-            <div id='div_all_exercises'>
-                <div class='div_exercise' id='div_exercise1'>
-                    <textarea class ='textarea_question' id='question1' name ='question1' placeholder="Nhập câu hỏi"></textarea>
-                    <input type='text' class='input_answer' id='answer1_A' name='answer1_A' placeholder='Đáp án A'>
-                    <input type='text' class='input_answer' id='answer1_B' name='answer1_B' placeholder='Đáp án B'>
-                    <input type='text' class='input_answer' id='answer1_C' name='answer1_C' placeholder='Đáp án C'>
-                    <input type='text' class='input_answer' id='answer1_D' name='answer1_D' placeholder='Đáp án D'>
-                    <label class='label_correctAnswer'>Đáp án đúng:</label>
-                    <select class = 'radio_correctAnswer' name ='correctAnswer1' >
-                        <option value='A'>A</option>
-                        <option value='B'> B</option>
-                        <option value='C'> C </option>
-                        <option value ='D' >D </option>
-                    </select>
-                </div>           
+        <form action="Process_Exercise_Teacher"
+              medthod ="post">
+            <div id="container">
+                <h1 id='label_chapName_partName'>Hiển thị tên chương, bài</h1>
+                <div id='div_all_exercises'>
+                    <div class='div_exercise' id='div_exercise1'>
+                        <textarea class ='textarea_question' id='question1' name ='question1' placeholder="Nhập câu hỏi"></textarea>
+                        <input type='text' class='input_answer' id='answer1_A' name='answer1_A' placeholder='Đáp án A'>
+                        <input type='text' class='input_answer' id='answer1_B' name='answer1_B' placeholder='Đáp án B'>
+                        <input type='text' class='input_answer' id='answer1_C' name='answer1_C' placeholder='Đáp án C'>
+                        <input type='text' class='input_answer' id='answer1_D' name='answer1_D' placeholder='Đáp án D'>
+                        <label class='label_correctAnswer'>Đáp án đúng:</label>
+                        <select class = 'radio_correctAnswer' name ='correctAnswer1' id="correctAnswer1" >
+                            <option value='A'>A</option>
+                            <option value='B'> B</option>
+                            <option value='C'> C </option>
+                            <option value ='D' >D </option>
+                        </select><br/>
+                        <textarea class ='textarea_explaination' id='explaination1' name ='explaination1' placeholder="Giải thích"></textarea>
+                    </div>           
+                </div>
+                <input type="button" id ='button_add_exercise' value='Thêm' onclick='AddExercise()'>
             </div>
-            <input type="button" id ='button_add_exercise' value='Thêm' onclick='AddExercise()'>
-        </div>
+            <div class ="div_save">
+                <input id="button_save" type="submit" value="Lưu">
+            </div>
+            <div class="footer">
+                <div class="small-container">
+                    <div class="info-member">
+                        <div class="member-detail">
+                            <h3>Name of Member</h3>
+                            <ul>
+                                <li>Trần Văn Ân</li>
+                                <li>Nguyễn Phan Sự</li>
+                                <li>Nguyễn Anh Quốc</li>
+                            </ul>
+                        </div>
+                        <div class="member-detail">
+                            <h3>ID Student</h3>
+                            <ul>
+                                <li>18110249</li>
+                                <li>18110355</li>
+                                <li>18110345</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-contact member-detail">
+                        <h3>Contact</h3>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                            <li><a href="#"><i class="fas fa-at"></i> Email</a></li>
+                            <li><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
+                        </ul>
+                    </div>
+                    <div class="icon-logo">
 
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </form>
+        <% String message = (String) request.getAttribute("message");
+                        if (message != null) {%>
+            <%="<script> alert('" + message + "');</script>"%>
+            <% request.setAttribute("message", null);%>
+            <%}%>
     </body>
     <script>
         var totalExercises = 30;
         var exerciseList = [];
-        exerciseList[1]=1;
+        var totalExercise=1;
+        exerciseList[1] = 1;
         for (var i = 0; i <= totalExercises; i++)
         {
             exerciseList.push(0);
@@ -58,6 +109,7 @@
 
         function AddExercise()
         {
+            totalExercise
             var emptyPosition = 0;
             for (var i = 1; i <= totalExercises; i++)
             {
@@ -74,6 +126,7 @@
                 return;
             }
 
+            totalExercise++;
             //Create textarea to enter a question
             var newExerciseDiv = document.createElement('div');
             newExerciseDiv.setAttribute('class', 'div_exercise');
@@ -98,30 +151,86 @@
                 newAnswer.setAttribute('id', 'answer' + emptyPosition + '_' + name[i]);
                 newAnswer.setAttribute('name', 'answer' + emptyPosition + '_' + name[i]);
                 newAnswer.setAttribute('placeholder', 'Đáp án ' + name[i]);
-                
+
                 newExerciseDiv.appendChild(newAnswer);
             }
-            
+
             var label = document.createElement('label');
-            label.setAttribute('class','label_correctAnswer');
-            label.innerHTML='Đáp án đúng: ';
+            label.setAttribute('class', 'label_correctAnswer');
+            label.innerHTML = 'Đáp án đúng: ';
             newExerciseDiv.appendChild(label);
-            
+
             //Create a selection for the answer
             var newSelect = document.createElement('select');
             newSelect.setAttribute('class', 'radio_correctAnswer');
-            newSelect.setAttribute('name', 'correctAnswer'+ emptyPosition);
+            newSelect.setAttribute('name', 'correctAnswer' + emptyPosition);
+            newSelect.setAttribute('id', 'correctAnswer' + emptyPosition);
             newExerciseDiv.appendChild(newSelect);
-                       
-            for( var i=0; i<4; i++)
+
+            for (var i = 0; i < 4; i++)
             {
                 var newoption = document.createElement("option");
                 newoption.setAttribute('value', name[i]);
-                newoption.innerHTML= name[i];
+                newoption.innerHTML = name[i];
                 newSelect.appendChild(newoption);
             }
-            
+
+            var newExplanationTextarea = document.createElement('textarea');
+            newExplanationTextarea.setAttribute('class', 'textarea_explaination');
+            newExplanationTextarea.setAttribute('id', 'explaination' + emptyPosition);
+            newExplanationTextarea.setAttribute('name', 'explaination' + emptyPosition);
+            newExplanationTextarea.setAttribute('placeholder', 'Giải thích');
+            newExerciseDiv.appendChild(newExplanationTextarea);
+    
             exerciseList[emptyPosition] = 1;
         }
+       
+        ///Load data
+        
+//        while ()
+        <% try
+        {
+            int maxExercise = Integer.parseInt(request.getAttribute("maxExercise").toString());
+            for(int exerciseid =1; exerciseid<=maxExercise; exerciseid++)
+            {
+                Exercise exercise = (Exercise) request.getAttribute("Exercise"+exerciseid);
+                if(exercise!=null)
+                {%>
+                  var textarea_question = document.getElementById("question"+<%=exerciseid%>);
+                  while( textarea_question==null)
+                  {
+                      AddExercise();
+                      textarea_question = document.getElementById("question"+<%=exerciseid%>);
+                  }
+                  
+                  textarea_question.value="<c:out value='<%=exercise.getQuestion()%>'/>";
+                  var textarea_answer = document.getElementById("answer"+<%=exerciseid%>+"_A");
+                  textarea_answer.setAttribute("value","<c:out value="<%=exercise.getAnswerA()%>"/>");
+                  
+                  //ans B
+                  textarea_answer = document.getElementById("answer"+<%=exerciseid%>+"_B");
+                  textarea_answer.setAttribute("value", "<c:out value='<%=exercise.getAnswerB()%>'/>");
+                 
+                 //ans C
+                  textarea_answer = document.getElementById("answer"+<%=exerciseid%>+"_C");
+                  textarea_answer.setAttribute("value", "<c:out value='<%=exercise.getAnswerC()%>'/>");
+                  
+                  //Ans D
+                   textarea_answer = document.getElementById("answer"+<%=exerciseid%>+"_D");
+                   textarea_answer.setAttribute("value", "<c:out value='<%=exercise.getAnswerD()%>'/>");
+
+                   //Correct Ans
+                   var select_correct_answer= document.getElementById("correctAnswer"+ <%=exerciseid%>);
+                   select_correct_answer.value="<c:out value='<%=exercise.getCorrectAnswer()%>'/>";
+                   
+                  //explain
+                   textarea_answer = document.getElementById("explaination"+<%=exerciseid%>);
+                   textarea_answer.value="<c:out value='<%=exercise.getExplaination()%>'/>"
+                <%}
+            }
+        }
+        catch(Exception ex)
+            {}%>
+        
     </script>
 </html>

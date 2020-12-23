@@ -3,17 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/web/CourseIntroduction_Teacher.jsp</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/ChapId.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Process_CourseIntroduction_Teacher.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/Course.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/web/CourseIntroduction_Teacher_css.css</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/web/exercise_teacher.jsp</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/web/exercise_teacher_css.css</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/CourseDB.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/ChapDB.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/Chap.java</file>
-            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/Final_project/src/java/Model/DBUtil.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/UploadServlet.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/exercise_teacher_css.css</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/CourseDB.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/CourseIntroduction_Teacher.jsp</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/Part.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/CourseIntroduction_Teacher_css.css</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/exercise_teacher.jsp</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Process_CourseIntroduction_Teacher.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/logo.png</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/WEB-INF/web.xml</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/FAQ.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/ChapDB.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/Course.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/DBUtil.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/FAQDB.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/Chap.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/web/index.html</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Model/PartDB.java</file>
+            <file>file:/C:/AQ/AQ/btlaptrinh/Nam_ba/Web_programming/OnlineCourse/OnlineCourse/src/java/Display_Course_Introduction_Teacher.java</file>
         </group>
     </open-files>
 </project-private>

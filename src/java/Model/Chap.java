@@ -17,34 +17,22 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Chap implements Serializable  {
-//    @ManyToOne
-//    private Course course;
-    
+
     @Id
     private int CourseId;
     @Id
-    private int Chapid ;
+    private int ChapId ;
     private String Name;
 
      public Chap() {
     }
 
-    public Chap(int CourseId, int Chapid, String Name) {
+    public Chap(int CourseId, int ChapId, String Name) {
         this.CourseId = CourseId;
-        this.Chapid = Chapid;
+        this.ChapId = ChapId;
         this.Name = Name;
     }
-     
-     
-//    public Course getCourse() {
-//        return course;
-//    }
-//
-//    public void setCourse(Course course) {
-//        this.course = course;
-//    }
-
-   
+       
 
     public int getCourseId() {
         return CourseId;
@@ -55,11 +43,11 @@ public class Chap implements Serializable  {
     }
 
     public int getChapid() {
-        return Chapid;
+        return ChapId;
     }
 
-    public void setChapid(int Chapid) {
-        this.Chapid = Chapid;
+    public void setChapid(int ChapId) {
+        this.ChapId = ChapId;
     }
 
     public String getName() {

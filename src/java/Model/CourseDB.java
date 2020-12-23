@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -55,6 +56,26 @@ public class CourseDB {
         return result;
     }
      
+    public static boolean deleteCourse(Course course)
+    {
+        boolean result = true;
+        EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction tran = entityManager.getTransaction();
+        tran.begin();
+
+        try {
+            entityManager.remove(course);
+            tran.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            tran.rollback();
+            result = false;
+        } finally {
+            entityManager.close();
+        }
+        return result;
+    }
+    
     public static int getMaxCourseID() {
        int max=0;
         EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
@@ -73,7 +94,7 @@ public class CourseDB {
 
     public static Course getCourseById(int courseid) {
         EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
-        String queryS = "SELECT c from Course c where c.courseid = :courseid";
+        String queryS = "SELECT c from Course c where c.CourseId = :courseid";
         TypedQuery<Course> query = entityManager.createQuery(queryS, Course.class);
         query.setParameter("courseid", courseid);
 
@@ -94,5 +115,30 @@ public class CourseDB {
     {
         Course u = getCourseById(courseid);
         return u!=null;
+    }
+    
+     public static List<Exercise> getAllPartOfChap( int courseid, int chapid, int partid)
+    {
+        EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
+        String queryS = "Select e from Exercise e where e.CourseId = :courseid and e.ChapId = :chapid and e.PartId = :partid ";
+        
+        TypedQuery<Exercise> q = entityManager.createQuery(queryS, Exercise.class);
+        q.setParameter("courseid", courseid);
+        q.setParameter("chapid", chapid);
+        q.setParameter("partid", partid);
+        
+        List<Exercise> exerciseList ;
+        
+        try
+        {
+            exerciseList = q.getResultList();
+            if( exerciseList==null || exerciseList.isEmpty())
+                exerciseList=null;
+        }
+        finally
+        {
+            entityManager.close();
+        }
+        return exerciseList;
     }
 }

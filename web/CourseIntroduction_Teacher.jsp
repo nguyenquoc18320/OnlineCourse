@@ -1,8 +1,15 @@
+
+<%@page import="Model.Chap"%>
+<%@page import="Model.Part"%>
+<%@page import="Model.FAQ"%>
+<%@page  import = "Model.*" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,7 +21,8 @@
     <body>     
         <form action="Process_CourseIntroduction_Teacher"
               method="post">
-            <input type ="hidden" name='courseId' value="${course.getCourseid()}">
+            <input type ="hidden" name='courseId' value="${course.getCourseId()}">
+            <%--<c:out value="${course.getCourseId()}"/>--%>
             <div class = 'div_menu'>
                 <div class='div_logo'>
                     <img id='image_logo'href='#' src ="logo.png" >
@@ -29,20 +37,19 @@
                     <h2>1. Mục tiêu khóa học:</h2>
                     <textarea id="textarea_mucTieu" type="text" placeholder="Nhập mục tiêu khóa học" 
                               name='objective' ><c:if test="${ not empty course.getObjective()}"><c:out value="${course.getObjective()}"/></c:if></textarea>
-                </div>
+                    </div>
 
-                <!--Nội dung các chương-->
-                <div class ="div_noiDung">
-                    <h2>2. Nội dung chương trình học:</h2>         
-
-                    <c:set var="counter_chap" scope="page" value ="2"/>
-                    <c:set var="counter_chap"  value ="${counter_chap+1}"/>
-
-                    <input type="text" id ="courseName" name ="courseName" placeholder="Nhập tên khóa học"
-                           <c:if test="${not empty course.getName()}"> value ='<c:out value="${course.getName()}"/>'</c:if>>
-                    <div id='textbox_group'>
-                        <div id="div_chap1" class="div_chap">                          
-                            <input type='textbox' class="textbox_chap" id='textbox_chap1' name='chap1' placeholder="Nhập tên chương" >
+                    <!--Nội dung các chương-->
+                    <div class ="div_noiDung">
+                        <h2>2. Nội dung chương trình học:</h2>        
+                        <input type="text" id ="courseName" name ="courseName" placeholder="Nhập tên khóa học"
+                        <c:if test="${not empty course.getName()}"> value ='<c:out value="${course.getName()}"/>'</c:if>>
+                        <div id='textbox_group'>
+                            <div id="div_chap1" class="div_chap">                          
+                                <input type='textbox' class="textbox_chap" id='textbox_chap1' name='chap1' 
+                                <c:if test="${ not empty chap1}">
+                                    value =  '<c:out value= "${chap1.getName()}" /> '                                        
+                                </c:if> placeholder = "Nhập tên chương" >
                             <input class="btn_add_part" id='btn_add_part_chap1' type='button' value='+' onclick="addPart(1)"  >
                         </div>
                     </div>
@@ -53,9 +60,11 @@
 
                         var counter_chap = 1;
                         var numberOfParts = [0, 0];
+
                         function addChap()
                         {
                             counter_chap++;
+
                             if (counter_chap > 10) {
                                 alert("Only 10 textboxes allow");
                                 return false;
@@ -74,7 +83,17 @@
                             newTextBox.setAttribute("type", "text");
                             newTextBox.setAttribute("name", "chap" + counter_chap);
                             newTextBox.setAttribute("class", "textbox_chap");
-                            newTextBox.setAttribute("value", "");
+
+
+                        <%for (int i = 2; i <= 10; i++) {%>
+                            if (counter_chap === <%=i%>)
+                            {
+                        <% Chap c = (Chap) request.getAttribute("chap" + i);
+                            if (c != null) {%>
+                                newTextBox.setAttribute("value", "<c:out value='<%=c.getName()%>'/>");
+                        <%}%>
+                            }
+                        <%}%>
                             newTextBox.setAttribute("id", "textbox_chap" + counter_chap);
                             newTextBox.setAttribute("placeholder", "Nhập tên chương");
                             newDiv.appendChild(newTextBox);
@@ -97,6 +116,12 @@
                             //number of part (substract 2 (including chap input and button)
                             var numberOfPart = numberOfParts[chap];
 
+                            if (numberOfPart > 10) {
+                                alert("Only 10 textboxes allow");
+                                return false;
+                            }
+
+
                             var lastPart;
                             if (numberOfPart === 0)
                             {
@@ -108,9 +133,10 @@
 
                             lastPart.insertAdjacentHTML("afterend", "<input type = 'text' class ='textbox_part' id ='textbox_chap" + chap + "_part" + (numberOfPart + 1) + "'\n\
                                                                                 name = 'chap" + chap + "_part" + (numberOfPart + 1) + "' placeholder ='Nhập tên'>");
-
+                            
+                        
                             numberOfParts[chap] += 1;
-                            console.log(numberOfParts);
+                            //console.log(numberOfParts);
                         }
 
                         //function to standardize the content display
@@ -158,7 +184,41 @@
                                 }
                             }
                         }
+
+                        <c:set var="maxchap" value="0"/>
+                        <c:if test="${not empty maxChap}">
+                            <c:set var="maxchap" value="${maxChap}"/>
+                             
+                        </c:if>
+                        //Thêm các chap vào 
+                        console.log(${maxchap});
+                        while (counter_chap < ${maxchap})
+                        {
+                            console.log("lần");
+                            addChap();
+                        }
+                        
+                         <% try
+                         {
+                             int maxChap =  (int)request.getAttribute("maxChap");
+                             for (int chapid = 1; chapid <= maxChap; chapid++) {
+                                    for (int partid = 1; partid <= 10; partid++) {
+                                        String s = "chap" + chapid + "_part" + partid;
+                                        Part part = (Part) request.getAttribute("chap" + chapid + "_part" + partid);
+                                        if (part != null) {%>
+                                        addPart(<%=part.getChapId()%>);
+                                            var input = document.getElementById('<%="textbox_chap"+chapid+"_part"+partid%>');
+                                            input.setAttribute("value","<c:out value='<%=part.getName()%>'/>");
+                                        <% }
+                                    else break;
+                                }
+                            }
+                        }       
+                         catch(Exception ex){}%>
+
                     </script>
+                   
+
                 </div>
                 <div class ="div_part3_instructor">
                     <h2>3. Thông tin người giảng dạy:</h2>
@@ -277,7 +337,7 @@
                     </script>
                 </div>
 
-                <div id ="div_part4_FAQ">
+                <div id="div_part4_FAQ">
                     <h2>4. Các câu hỏi thường gặp:</h2>
                     <div id ='div_FAQ'>
                         <textarea class='textarea_question'  id ='textarea_question1' placeholder='Nhập câu hỏi' name="question1"></textarea>
@@ -303,8 +363,36 @@
 
                         button_add_FAQ.insertAdjacentHTML('beforebegin', "<textarea class ='textarea_answer' id= 'textarea_answer" + counter_questions + "'placeholder='Nhập câu trả lời' name ='answer" + counter_questions + "'></textarea>");
                     }
+                    
+                    var input1 = document.getElementById("textarea_question1");
+                                            console.log(input1);
+                                            input1 = document.getElementById('aaa111');
+                   <% try
+                         {
+                             for (int faqid = 1; faqid <= 10; faqid++) {
+                             
+                                        FAQ faq = (FAQ) request.getAttribute("FAQ" + faqid );
+                                        if (faq != null) {%>
+                                        
+                                            var input1 = document.getElementById("textarea_question" + <%=faqid%>);
+                                            console.log(input1);
+                                            while(!input1)
+                                            {
+                                                addFAQ();
+                                                input1 = document.getElementById("textarea_question"+ <%=faqid%>);
+                                            }
+                                                                                     
+                                                 
+                                            input1.value= "<c:out value='<%=faq.getQuestion()%>'/>";
+                                            
+                                            input1 = document.getElementById("textarea_answer"+<%=faqid%>);
+                                            input1.value= "<c:out value='<%=faq.getAnswer()%>'/>";                       
+                                        <% }
+                               }
+                            }                              
+                         catch(Exception ex){}%>
                 </script>
-
+           
             </div>
             <div class = 'div_save'>
                 <!--<a href="Process_CourseIntroduction_Teacher"><input type='button' id ='button_save' value='Save'></a>-->
@@ -345,11 +433,17 @@
             </div>
             <hr>
             <% String message = (String) request.getAttribute("message");
-                                if (message != null) {%>
+                        if (message != null) {%>
             <%="<script> alert('" + message + "');</script>"%>
             <% request.setAttribute("message", null);%>
             <%}%>
         </form>
-    </body>
+<!--        <form action="UploadServlet" method="post"
+                        enctype="multipart/form-data">
+<input type="file" name="file" size="50" />
+<br />
+<input type="submit" value="Upload File" />
+</form>
+    </body>-->
 
 </html>

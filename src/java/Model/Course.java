@@ -18,86 +18,78 @@ import java.util.Date;
 public class Course {
     
     @Id
-    private int courseid;
-    private String name;
-    private String objective;
-    private int userid;
+    private int CourseId;
+    private String Name;
+    private String Objective;
+    private int UserId;
     @Temporal (TemporalType.TIMESTAMP)
-    private Date modifiedDate;
-    private boolean approved;
+    private Date ModifiedDate;
+    private String Document;
 
-    public String getObjective() {
-        return objective;
-    }
-
-    public void setObjective(String objective) {
-        this.objective = objective;
-    }
-    private String document;
-
+   
     public Course()
     {
         
     }
 
     public Course(int courseid, String name, String objective, int userid, Date modifiedDate,  String document) {
-        this.courseid = courseid;
-        this.name = name;
-        this.objective = objective;
-        this.userid = userid;
-        this.modifiedDate = modifiedDate;
-        this.objective = objective;
-        this.document = document;
-    }
-       
-    public int getCourseid() {
-        return courseid;
+        this.CourseId = courseid;
+        this.Name = name;
+        this.Objective = objective;
+        this.UserId = userid;
+        this.ModifiedDate = modifiedDate;
+        this.Document = document;
     }
 
-    public void setCourseid(int courseid) {
-        this.courseid = courseid;
+    public int getCourseId() {
+        return CourseId;
+    }
+
+    public void setCourseId(int CourseId) {
+        this.CourseId = CourseId;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
-    public int getUserid() {
-        return userid;
+    public String getObjective() {
+        return Objective;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setObjective(String Objective) {
+        this.Objective = Objective;
+    }
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int UserId) {
+        this.UserId = UserId;
     }
 
     public Date getModifiedDate() {
-        return modifiedDate;
+        return ModifiedDate;
     }
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public void setModifiedDate(Date ModifiedDate) {
+        this.ModifiedDate = ModifiedDate;
     }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
 
     public String getDocument() {
-        return document;
+        return Document;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setDocument(String Document) {
+        this.Document = Document;
     }
+      
+    
     
      
 }

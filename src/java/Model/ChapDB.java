@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -16,26 +17,22 @@ import javax.persistence.TypedQuery;
 public class ChapDB {
     public static boolean insertChap(Chap chap)
     {
-        boolean result;
+      
+        boolean result = true;
         EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction tran = entityManager.getTransaction();
         tran.begin();
-        
-        try
-        {
+
+        try {
             entityManager.persist(chap);
             tran.commit();
-            result= true;
-        }
-        catch(Exception ex)
-        {
-            result= false;
+        } catch (Exception e) {
+            System.out.println(e);
             tran.rollback();
-        }
-        finally
-        {
+            result = false;
+        } finally {
             entityManager.close();
-        }       
+        }
         return result;
     }
     
@@ -49,6 +46,31 @@ public class ChapDB {
         try
         {
             entityManager.merge(chap);
+            tran.commit();
+            result = true;
+        }
+        catch(Exception ex)
+        {
+            tran.rollback();
+            result=false;
+        }
+        finally
+        {
+            entityManager.close();
+        }
+        return result;
+    }
+    
+    public static boolean deleteChap(Chap chap)
+    {
+        boolean result;
+        EntityManager entityManager= DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction tran = entityManager.getTransaction();
+        tran.begin();
+        
+        try
+        {
+            entityManager.remove(chap);
             tran.commit();
             result = true;
         }
@@ -110,5 +132,31 @@ public class ChapDB {
             entityManager.close();
         }
         return chap;
+    }
+    
+    
+    //The function to get all chap by courseid
+    public static List<Chap> getAllChapByCourseId(int courseId)
+    {
+        EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
+        String queryS = "Select c from Chap c where c.CourseId = :courseId";
+        
+        TypedQuery<Chap> q = entityManager.createQuery(queryS, Chap.class);
+        q.setParameter("courseId", courseId);
+
+        
+        List<Chap> chaps;
+       try
+       {
+           chaps = q.getResultList();
+           if(chaps==null || chaps.isEmpty())
+               chaps=null;
+       }
+       finally
+               {
+                   entityManager.close();
+               }
+       return chaps;
+               
     }
 }

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Model.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,8 +33,10 @@ public class Process_CourseIntroduction_Teacher extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+                throws ServletException, IOException {
 
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String url = "/CourseIntroduction_Teacher.jsp";
 
         HttpSession session = request.getSession();
@@ -54,7 +58,7 @@ public class Process_CourseIntroduction_Teacher extends HttpServlet {
             Course course = new Course(max + 1, courseName, objective, 1, now, "");
 
             if (CourseDB.insertCourse(course)) {
-                message = "Tạo khóa học mới thành công";
+               
                 request.setAttribute("course", course);
             } else {
                 message = "Tạo khóa học mới thất bại";
@@ -65,33 +69,115 @@ public class Process_CourseIntroduction_Teacher extends HttpServlet {
             try {
                 if (CourseDB.courseExists(courseid)) {
                     request.setAttribute("course", course);
-                    if (CourseDB.updateCourse(course)) {
-                        message = "Cập nhật thành công";
-                    } else {
-                        message = "Lưu thất bại";
-                    }
+                    if (!CourseDB.updateCourse(course)) 
+                        message = "Lưu thất bại";                   
                 } else {
                     message = "Không tìm thấy khóa học";
                 }
-            } catch (Exception ex) {
+            }catch (Exception ex) {
                 message = "Lưu thất bại";
             }
         }
 
+      
+        int maxChap = 0;
         //Process the chaps
-       // for (int i = 1; i <= 10; i++) {
-       int i=1;
-            String chapName = (String) request.getParameter("Chap" + i);
-            if (!"null".equals(chapName)) {
+        for (int i = 1; i <= 10; i++) {
+            String chapName = (String) request.getParameter("chap" + i);
+            if (chapName != null && !chapName.equals("") ) {
                 Chap chap = new Chap(courseid, i, chapName);
-                if (ChapDB.chapExists(courseid, i)) {
-                    ChapDB.updateChap(chap);
+                if (ChapDB.chapExists(courseid, i)) {                 
+                    if(!ChapDB.updateChap(chap))                  
+                        message="Lưu thất bại";
                 } else {
-                    ChapDB.insertChap(chap);
+                    if(!ChapDB.insertChap(chap))
+                        message="Lưu thất bại";
+                }
+                request.setAttribute("chap"+i, chap);
+                maxChap =i;
+            }
+        }
+
+        //Xử lí part
+        for (int chapid=1; chapid<=10; chapid++)
+        {
+            for (int partid=1; partid<=10; partid++)
+            {
+                String partName =(String) request.getParameter("chap"+chapid+"_part"+partid);
+                if(partName !=null && !partName.equals(""))
+                {
+                    Part part = new Part(courseid,chapid, partid, partName);
+                    //the part exist in the database
+                    if(PartDB.partExists(courseid, chapid, partid))
+                    {
+                        if(!PartDB.updatePart(part))
+                            message="Lưu thất bại";
+                    }
+                    else
+                    {
+                            if(PartDB.insertPart(part)==false)
+                            {
+                                message="Lưu thất bại";
+                            }
+                    }
+                    request.setAttribute("chap"+chapid+"_part"+partid, part);
+                }
+                else
+                {                
+                    try
+                    {
+                        PartDB.deletePart(courseid, chapid, partid);
+                    }
+                    catch(Exception ex)
+                    {
+                         message="Lưu thất bại";
+                    }
                 }
             }
-        //}
-
+        }
+        
+        
+        ///Xử lí FAQ
+        for (int faqId =1; faqId<=10; faqId++ )
+        {
+            String question = request.getParameter("question"+faqId);
+            if(question==null)
+                question="";          
+            String answer= request.getParameter("answer"+faqId);
+            if(answer==null)
+                answer="";     
+            //There is at least one of the question or the answer
+            if(!question.equals("") || !answer.equals(""))
+            {
+                  FAQ faq = new FAQ (courseid, faqId, question, answer);
+                 
+                  //update if the faq exists in db
+                  if(FAQDB.FAQExists(courseid, faqId))
+                  {
+                      if(!FAQDB.updateFAQ(faq))
+                          message="Lưu thất bại";
+                  }
+                  else//add new faq
+                  {
+                      if(!FAQDB.insertFAQ(faq))
+                          message="Lưu thất bại";
+                  }
+                   request.setAttribute("FAQ"+faqId, faq);
+            }
+            else//delete the chap if it exists in db
+            {
+                if(!FAQDB.deleteFAQ(courseid, faqId))
+                         message="Lưu thất bại";
+            }
+        }
+        
+        
+        if(message.equals(""))
+        {
+            message ="Lưu thành công";
+        }
+        
+        request.setAttribute("maxChap", maxChap);
         request.setAttribute("message", message);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

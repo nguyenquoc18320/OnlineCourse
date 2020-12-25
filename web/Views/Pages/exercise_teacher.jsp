@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="Model.Exercise"%>
+<%@page import="Model.Part"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -13,12 +14,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Exercise</title>
-        <link rel="stylesheet" href="exercise_teacher_css.css">
-        <!--<!-<script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+        <link rel="stylesheet" href="Views/Css/exercise_teacher_css.css">
+         <link rel="stylesheet" href="Views/Css/common.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         
     </head>
     <body>
-        <input type="hidden" name="part" value="${part}">
+        <%--<c:out value="${part}"/>--%>
+       
         <div class = 'div_menu'> 
             <div class='div_logo'>
                 <img id='image_logo'href='#' src ="logo.png" >
@@ -32,6 +35,10 @@
         </div>
         <form action="Process_Exercise_Teacher"
               medthod ="post">
+            <c:set value="${part}" var="part" scope="request"/>
+            <%Part p = (Part) request.getAttribute("part");
+            request.setAttribute("part", p);
+            %>
             <div id="container">
                 <h1 id='label_chapName_partName'>Hiển thị tên chương, bài</h1>
                 <div id='div_all_exercises'>

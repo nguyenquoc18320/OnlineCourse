@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <welcome-file-list>
-        <welcome-file>exercise_teacher.jsp</welcome-file>
+        <welcome-file>/Views/Pages/Course_Introduction_Student.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>Process_CourseIntroduction_Teacher</servlet-name>
-        <servlet-class>Process_CourseIntroduction_Teacher</servlet-class>
+        <servlet-class>Controller.Process_CourseIntroduction_Teacher</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Display_Course_Introduction_Teacher</servlet-name>
-        <servlet-class>Display_Course_Introduction_Teacher</servlet-class>
+        <servlet-class>Controller.Display_Course_Introduction_Teacher</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Process_Exercise_Teacher</servlet-name>
-        <servlet-class>Process_Exercise_Teacher</servlet-class>
+        <servlet-class>Controller.Process_Exercise_Teacher</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Display_Exercise_Teacher</servlet-name>
-        <servlet-class>.Display_Exercise_Teacher</servlet-class>
+        <servlet-class>Controller.Display_Exercise_Teacher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Display_Course_Introduction_Student</servlet-name>
+        <servlet-class>Controller.Display_Course_Introduction_Student</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Process_CourseIntroduction_Teacher</servlet-name>
@@ -34,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>Display_Exercise_Teacher</servlet-name>
         <url-pattern>/Display_Exercise_Teacher</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Display_Course_Introduction_Student</servlet-name>
+        <url-pattern>/Display_Course_Introduction_Student</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

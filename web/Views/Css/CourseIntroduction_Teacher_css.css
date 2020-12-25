@@ -143,6 +143,15 @@ padding-bottom: 20px;
     /*float: right;*/
 }
 
+.link_goto
+{
+    display: block;
+    margin-left: 95%;
+    margin-right: 0px;
+    width: 10px;
+}
+
+
 .textbox_chap{
     border: 1px solid gray;
     border-radius: 3px;
@@ -333,6 +342,7 @@ padding-bottom: 20px;
 
 #button_save
 {
+    width: 200px;
     font-weight: bold;
     background-color: #31B404;
     font-size: 18px;
@@ -340,6 +350,16 @@ padding-bottom: 20px;
     padding: 5px 20px 5px 20px;
 }
 
+#button_newCourse
+{
+    width: 200px;
+    margin-left: 20px;
+      font-weight: bold;
+    background-color: #B40431;
+    font-size: 18px;
+    color:white;
+    padding: 5px 20px 5px 20px;
+}
 /*Footer*/
 .footer{
     margin-top: 50px;

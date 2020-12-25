@@ -7,6 +7,20 @@ and open the template in the editor.
     Created on : Nov 17, 2020, 2:58:48 PM
     Author     : A556U
 */
+
+.div_inspire
+{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 400px;
+}
+
+#image_inspire
+{
+    width: 100%;
+    height: 100%;
+}
+
 h2
 {
     padding: 10px 50px 10px 50px;
@@ -75,7 +89,7 @@ h2
 /*    padding-right: 50px;
     padding-left: 50px;*/
 padding-bottom: 20px;
-    background-color: #BDBDBD;
+    background-color: #E6E6E6;
      border-radius: 10px 10px 10px 10px;
 }
 
@@ -83,7 +97,6 @@ padding-bottom: 20px;
 
 #textarea_mucTieu
 {
-    height: 100px;
     width: 90%;
     resize: vertical;
     font-size: 18px;
@@ -101,7 +114,7 @@ padding-bottom: 20px;
     margin-top: 50px;
     /*background-color: red;*/
     padding-bottom: 20px;
-    background-color: #BDBDBD;
+    background-color: #E6E6E6;
      border-radius: 10px 10px 10px 10px;
 }
 
@@ -112,6 +125,7 @@ padding-bottom: 20px;
     font-size: 30px;
     color: #b1154a;
     margin: 0 5% 0 5%;
+
 }
 
 .div_chap
@@ -130,29 +144,34 @@ padding-bottom: 20px;
     font-family: Time New Roman;
     font-size: 18px;
     margin-top: 10px;
+    
 }
 
 .textbox_part
 {   
+    background-color: #E6E6E6;
+    border-style: none;
     display: block;
     width: 90%;
     font-family: Time New Roman;
     font-size: 18px;
     margin-top:10px;
     margin-left: 10%;
-    /*float: right;*/
+    text-align: left;
 }
 
 .textbox_chap{
-    border: 1px solid gray;
-    border-radius: 3px;
+    background-color: #E6E6E6;
+    border-style: none;
     margin-bottom: 8px;
     padding: 8px;
     display: block;
     width: 100%;
     font-family: Time New Roman;
-    font-size: 18px;
+    font-size: 20px;
     margin-top:10px;
+    text-align: left;
+    color: #B4045F;
 }
 .btn_add_chap{
     padding: 8px 16px;
@@ -186,7 +205,7 @@ padding-bottom: 20px;
 {
     margin-top: 50px;
     /*background-color: blue;*/
-    background-color: #BDBDBD;
+    background-color: #E6E6E6;
      border-radius: 10px 10px 10px 10px;
     
 }
@@ -270,7 +289,7 @@ padding-bottom: 20px;
     border-radius: 3px;
     margin-top: 10px;
     margin-left: 20%;
-    background-color: #086A87;
+    background-color: #E6E6E6;
     color: white;
     font-weight: bold;
 }
@@ -279,7 +298,7 @@ padding-bottom: 20px;
 #div_part4_FAQ
 {
     margin-top: 50px;
-    background-color: #BDBDBD;
+    background-color: #E6E6E6;
      border-radius: 10px 10px 10px 10px;
 }
 
@@ -294,8 +313,9 @@ padding-bottom: 20px;
 {
    width: 100%;
    resize: vertical;
-   font-size: 17px;
+   font-size: 20px;
    font-family: Time New Roman;
+   color:#DF013A;
 /*   background-color: blue;
    color:red;*/
 }

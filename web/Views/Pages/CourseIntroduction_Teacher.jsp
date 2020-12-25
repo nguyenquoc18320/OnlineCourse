@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Giới thiệu khóa học</title>
-        <link rel="stylesheet" href="CourseIntroduction_Teacher_css.css">
+        <link rel="stylesheet" href="Views/Css/CourseIntroduction_Teacher_css.css">
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
 
@@ -56,6 +56,10 @@
                     <input class="btn_add_chap" id='btn_add_chap' type='button' value='Add Chap' onclick ='addChap()' >
                     <input class="btn_standardize_chap" id='btn_standardize_chap' type='button' value='Chuẩn hóa' onclick='Standardize()' >
 
+<!--                    <form action ="exercise_teacher.jsp"
+                        method="post">
+                        <input type ="submit" value="thu">
+                    </form>-->
                     <script>
 
                         var counter_chap = 1;
@@ -128,17 +132,28 @@
                                 lastPart = document.getElementById("textbox_chap" + chap);
                             } else
                             {
-                                lastPart = document.getElementById("textbox_chap" + chap + "_part" + numberOfPart);
+                                lastPart = document.getElementById("link_goto_exercise_chap" + chap + "_part"+numberOfPart);
                             }
 
                             lastPart.insertAdjacentHTML("afterend", "<input type = 'text' class ='textbox_part' id ='textbox_chap" + chap + "_part" + (numberOfPart + 1) + "'\n\
                                                                                 name = 'chap" + chap + "_part" + (numberOfPart + 1) + "' placeholder ='Nhập tên'>");
+                            lastPart =document.getElementById("textbox_chap" + chap + "_part" + (numberOfPart+1));
                             
-                        
+                            //Tới trang bài học
+                            lastPart.insertAdjacentHTML("afterend", "<a  class='link_goto' id = 'link_goto_part_chap"+chap+"_part"+(numberOfPart+1)
+                                    +"' href='Display_Exercise_Teacher'><input   type ='button' value='Bài học' button' ></a>");
+                            
+                            
+                            lastPart =document.getElementById("link_goto_part_chap" + chap + "_part" + (numberOfPart+1));
+                            
+                            //Thêm nút bài tập
+                            lastPart.insertAdjacentHTML("afterend", "<a  class='link_goto' id = 'link_goto_exercise_chap"+chap+"_part"+(numberOfPart+1)
+                                    +"' href='Display_Exercise_Teacher'><input   type ='button' value='Bài tập' ></a>");
                             numberOfParts[chap] += 1;
                             //console.log(numberOfParts);
                         }
 
+                        
                         //function to standardize the content display
                         function Standardize()
                         {
@@ -209,6 +224,12 @@
                                         addPart(<%=part.getChapId()%>);
                                             var input = document.getElementById('<%="textbox_chap"+chapid+"_part"+partid%>');
                                             input.setAttribute("value","<c:out value='<%=part.getName()%>'/>");
+                                            
+                                            //chang link of link_goto
+                                            var link = document.getElementById('<%="link_goto_exercise_chap"+chapid+"_part"+partid%>');
+                                            link.setAttribute("href", '<%="Display_Exercise_Teacher?courseid="+part.getCourseId()+"&chapid="+part.getChapId()+"&partid="+part.getPartId()%>');
+                                            
+                                            
                                         <% }
                                     else break;
                                 }
@@ -396,7 +417,9 @@
             </div>
             <div class = 'div_save'>
                 <!--<a href="Process_CourseIntroduction_Teacher"><input type='button' id ='button_save' value='Save'></a>-->
+                <!--<a  href="Process_CourseIntroduction_Teacher"><input  id='button_save' type="button" value="Lưu"></a>-->
                 <input id ='button_save'  type="submit" value="Lưu">
+                <input id="button_newCourse" type="submit" value="Tạo khóa mới">
             </div>
             <div class="footer">
                 <div class="small-container">
@@ -438,6 +461,7 @@
             <% request.setAttribute("message", null);%>
             <%}%>
         </form>
+        
 <!--        <form action="UploadServlet" method="post"
                         enctype="multipart/form-data">
 <input type="file" name="file" size="50" />

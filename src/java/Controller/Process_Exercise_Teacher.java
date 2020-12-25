@@ -1,3 +1,5 @@
+package Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,9 +37,12 @@ public class Process_Exercise_Teacher extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Part part = (Part) request.getAttribute("part");
+        HttpSession session = request.getSession();
+        Part part = (Part)session.getAttribute("part");
         //The message sent to jsp
         String message = "";
+        
+        String url ="/Views/Pages/exercise_teacher.jsp";
         
         //the following part to test
        // part = new Part(1, 1, 1, "");
@@ -116,7 +122,7 @@ public class Process_Exercise_Teacher extends HttpServlet {
         request.setAttribute("maxExercise", maxExercise);
         request.setAttribute("message", message);
                 
-         getServletContext().getRequestDispatcher("/exercise_teacher.jsp").forward(request, response);
+         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

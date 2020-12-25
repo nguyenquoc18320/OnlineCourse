@@ -1,3 +1,5 @@
+package Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -37,9 +39,13 @@ public class Process_CourseIntroduction_Teacher extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        String url = "/CourseIntroduction_Teacher.jsp";
-
+        
         HttpSession session = request.getSession();
+        
+        
+        
+        String url = "/Views/Pages/CourseIntroduction_Teacher.jsp";
+
 
         String objective = (String) request.getParameter("objective");
         String courseName = (String) request.getParameter("courseName");
@@ -181,6 +187,7 @@ public class Process_CourseIntroduction_Teacher extends HttpServlet {
         request.setAttribute("message", message);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

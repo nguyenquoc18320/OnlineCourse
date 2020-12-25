@@ -1,3 +1,5 @@
+package Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,10 +34,17 @@ public class Display_Course_Introduction_Teacher extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         
-        Course course = (Course) request.getAttribute("course");      
+       Course course = (Course) request.getAttribute("course");      
        course = new Course(1, "", "", 1,null, "");
-       course = CourseDB.getCourseById(1);
+       if(course!=null)
+        course = CourseDB.getCourseById(course.getCourseId());
        int maxChap=0;
+       
+       if(course==null)
+       {
+           String message =  "Không tìm thấy khóa học!";
+           request.setAttribute("message",message);
+       }
         if(course!=null)
         {
             request.setAttribute("course", course);
@@ -73,7 +82,7 @@ public class Display_Course_Introduction_Teacher extends HttpServlet {
         }
         
         request.setAttribute("maxChap", maxChap);
-        getServletContext().getRequestDispatcher("/CourseIntroduction_Teacher.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/Views/Pages/CourseIntroduction_Teacher.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

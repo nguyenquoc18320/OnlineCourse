@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -97,6 +98,32 @@ public class ExerciseDB {
             entityManager.close();
         }
         return result;
+    }
+    
+    //get all exercise of a part 
+    public static List<Exercise> getAllExercisePartOfPart( int courseid, int chapid, int partid)
+    {
+        EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
+        String queryS = "Select e from Exercise e where e.CourseId = :courseid and e.ChapId = :chapid and e.PartId = :partid";
+        
+        TypedQuery<Exercise> q = entityManager.createQuery(queryS, Exercise.class);
+        q.setParameter("courseid", courseid);
+        q.setParameter("chapid", chapid);
+        q.setParameter("partid", partid);
+        
+        List<Exercise> exerciseList ;
+        
+        try
+        {
+            exerciseList = q.getResultList();
+            if( exerciseList==null || exerciseList.isEmpty())
+                exerciseList=null;
+        }
+        finally
+        {
+            entityManager.close();
+        }
+        return exerciseList;
     }
 
 }
